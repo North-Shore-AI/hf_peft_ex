@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Main gradient - HuggingFace yellow to Elixir purple -->
+    <linearGradient id="hexGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD21E;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#FF6F61;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#9B59B6;stop-opacity:1"/>
+    </linearGradient>
+    
+    <!-- Dark inner gradient -->
+    <linearGradient id="innerGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Neural node glow -->
+    <filter id="nodeGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Matrix pattern for PEFT -->
+    <pattern id="matrixPattern" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="none"/>
+      <circle cx="5" cy="5" r="0.5" fill="rgba(255,210,30,0.2)"/>
+    </pattern>
+    
+    <!-- Outer shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    
+    <!-- Connection gradient -->
+    <linearGradient id="connectionGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD21E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#9B59B6;stop-opacity:0.8"/>
+    </linearGradient>
+    
+    <!-- Low-rank gradient (A matrix) -->
+    <linearGradient id="loraA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0099CC;stop-opacity:1"/>
+    </linearGradient>
+    
+    <!-- Low-rank gradient (B matrix) -->
+    <linearGradient id="loraB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B9D;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#C44569;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background hexagon with shadow -->
+  <g filter="url(#shadow)">
+    <polygon 
+      points="100,8 178,54 178,146 100,192 22,146 22,54" 
+      fill="url(#hexGradient)"
+      stroke="none"/>
+  </g>
+  
+  <!-- Inner hexagon -->
+  <polygon 
+    points="100,16 170,58 170,142 100,184 30,142 30,58" 
+    fill="url(#innerGradient)"
+    stroke="url(#hexGradient)"
+    stroke-width="1"
+    stroke-opacity="0.5"/>
+  
+  <!-- Matrix pattern overlay -->
+  <polygon 
+    points="100,16 170,58 170,142 100,184 30,142 30,58" 
+    fill="url(#matrixPattern)"
+    opacity="0.3"/>
+  
+  <!-- PEFT Low-Rank Decomposition Visualization -->
+  <!-- W = W₀ + BA representation -->
+  
+  <!-- Original weight matrix (frozen) - left side -->
+  <g transform="translate(45, 65)">
+    <!-- Frozen matrix representation -->
+    <rect x="0" y="0" width="22" height="35" rx="2" ry="2" 
+          fill="#2a2a4a" stroke="#666" stroke-width="0.5" opacity="0.9"/>
+    <!-- Frozen indicator (snowflake-like) -->
+    <g transform="translate(11, 17.5)" stroke="#88aadd" stroke-width="0.8" fill="none" opacity="0.7">
+      <line x1="0" y1="-6" x2="0" y2="6"/>
+      <line x1="-5.2" y1="-3" x2="5.2" y2="3"/>
+      <line x1="-5.2" y1="3" x2="5.2" y2="-3"/>
+      <circle cx="0" cy="0" r="2" fill="#88aadd"/>
+    </g>
+  </g>
+  
+  <!-- Plus sign -->
+  <g filter="url(#nodeGlow)">
+    <text x="73" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFD21E" text-anchor="middle">+</text>
+  </g>
+  
+  <!-- Low-rank decomposition (BA) - right side -->
+  <!-- Matrix B (tall, thin) -->
+  <g transform="translate(82, 60)" filter="url(#nodeGlow)">
+    <rect x="0" y="0" width="8" height="45" rx="1.5" ry="1.5" 
+          fill="url(#loraB)" stroke="#fff" stroke-width="0.5" opacity="0.95"/>
+    <!-- B label -->
+    <text x="4" y="-3" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#FF6B9D" text-anchor="middle">B</text>
+  </g>
+  
+  <!-- Multiplication dot -->
+  <circle cx="96" cy="82.5" r="1.5" fill="#FFD21E" filter="url(#nodeGlow)"/>
+  
+  <!-- Matrix A (short, wide) -->
+  <g transform="translate(102, 72)" filter="url(#nodeGlow)">
+    <rect x="0" y="0" width="30" height="8" rx="1.5" ry="1.5" 
+          fill="url(#loraA)" stroke="#fff" stroke-width="0.5" opacity="0.95"/>
+    <!-- A label -->
+    <text x="15" y="-3" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#00D9FF" text-anchor="middle">A</text>
+  </g>
+  
+  <!-- Arrow showing update path -->
+  <g stroke="url(#connectionGrad)" stroke-width="1.5" fill="none" opacity="0.8" stroke-linecap="round">
+    <path d="M 140 76 Q 148 76 148 90 Q 148 104 140 104" marker-end="url(#arrowhead)"/>
+  </g>
+  
+  <!-- Neural network nodes visualization (above) -->
+  <g transform="translate(0, -8)">
+    <!-- Input layer -->
+    <g filter="url(#nodeGlow)">
+      <circle cx="55" cy="140" r="5" fill="#FFD21E" opacity="0.9"/>
+      <circle cx="55" cy="155" r="5" fill="#FFD21E" opacity="0.9"/>
+      <circle cx="55" cy="170" r="5" fill="#FFD21E" opacity="0.9"/>
+    </g>
+    
+    <!-- Hidden layer (adapted) -->
+    <g filter="url(#nodeGlow)">
+      <circle cx="100" cy="133" r="6" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
+      <circle cx="100" cy="150" r="6" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
+      <circle cx="100" cy="167" r="6" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
+    </g>
+    
+    <!-- Output layer -->
+    <g filter="url(#nodeGlow)">
+      <circle cx="145" cy="147" r="5" fill="#00D9FF" opacity="0.9"/>
+      <circle cx="145" cy="163" r="5" fill="#00D9FF" opacity="0.9"/>
+    </g>
+    
+    <!-- Connections - input to hidden -->
+    <g stroke="url(#connectionGrad)" stroke-width="0.8" opacity="0.5">
+      <line x1="60" y1="140" x2="94" y2="133"/>
+      <line x1="60" y1="140" x2="94" y2="150"/>
+      <line x1="60" y1="155" x2="94" y2="133"/>
+      <line x1="60" y1="155" x2="94" y2="150"/>
+      <line x1="60" y1="155" x2="94" y2="167"/>
+      <line x1="60" y1="170" x2="94" y2="150"/>
+      <line x1="60" y1="170" x2="94" y2="167"/>
+    </g>
+    
+    <!-- Connections - hidden to output -->
+    <g stroke="url(#connectionGrad)" stroke-width="0.8" opacity="0.5">
+      <line x1="106" y1="133" x2="140" y2="147"/>
+      <line x1="106" y1="150" x2="140" y2="147"/>
+      <line x1="106" y1="150" x2="140" y2="163"/>
+      <line x1="106" y1="167" x2="140" y2="163"/>
+    </g>
+    
+    <!-- Adapter bypass arrows (LoRA path) -->
+    <g stroke="#FF6B9D" stroke-width="1.2" fill="none" opacity="0.7" stroke-dasharray="2,2">
+      <path d="M 100 125 Q 100 118 110 118 Q 130 118 130 128"/>
+      <path d="M 100 175 Q 100 182 110 182 Q 130 182 130 172"/>
+    </g>
+  </g>
+  
+  <!-- "PEFT" small indicator -->
+  <g transform="translate(100, 55)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="9" font-weight="bold" 
+          fill="#FFD21E" text-anchor="middle" filter="url(#nodeGlow)" letter-spacing="2">PEFT</text>
+  </g>
+  
+  <!-- Decorative corner accents -->
+  <g stroke="url(#hexGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+    <path d="M 35 45 L 35 35 L 50 35"/>
+    <path d="M 165 45 L 165 35 L 150 35"/>
+    <path d="M 35 155 L 35 165 L 50 165"/>
+    <path d="M 165 155 L 165 165 L 150 165"/>
+  </g>
+</svg>
