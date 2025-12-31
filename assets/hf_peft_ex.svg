@@ -60,6 +60,11 @@
       <stop offset="0%" style="stop-color:#FF6B9D;stop-opacity:1"/>
       <stop offset="100%" style="stop-color:#C44569;stop-opacity:1"/>
     </linearGradient>
+    
+    <!-- Clip path for hexagon -->
+    <clipPath id="hexClip">
+      <polygon points="100,16 170,58 170,142 100,184 30,142 30,58"/>
+    </clipPath>
   </defs>
   
   <!-- Background hexagon with shadow -->
@@ -84,112 +89,108 @@
     fill="url(#matrixPattern)"
     opacity="0.3"/>
   
-  <!-- PEFT Low-Rank Decomposition Visualization -->
-  <!-- W = W₀ + BA representation -->
-  
-  <!-- Original weight matrix (frozen) - left side -->
-  <g transform="translate(45, 65)">
-    <!-- Frozen matrix representation -->
-    <rect x="0" y="0" width="22" height="35" rx="2" ry="2" 
-          fill="#2a2a4a" stroke="#666" stroke-width="0.5" opacity="0.9"/>
-    <!-- Frozen indicator (snowflake-like) -->
-    <g transform="translate(11, 17.5)" stroke="#88aadd" stroke-width="0.8" fill="none" opacity="0.7">
-      <line x1="0" y1="-6" x2="0" y2="6"/>
-      <line x1="-5.2" y1="-3" x2="5.2" y2="3"/>
-      <line x1="-5.2" y1="3" x2="5.2" y2="-3"/>
-      <circle cx="0" cy="0" r="2" fill="#88aadd"/>
+  <!-- All content clipped to hexagon -->
+  <g clip-path="url(#hexClip)">
+    <!-- PEFT Low-Rank Decomposition Visualization -->
+    <!-- W = W₀ + BA representation -->
+    
+    <!-- Original weight matrix (frozen) - left side -->
+    <g transform="translate(50, 68)">
+      <!-- Frozen matrix representation -->
+      <rect x="0" y="0" width="20" height="32" rx="2" ry="2" 
+            fill="#2a2a4a" stroke="#666" stroke-width="0.5" opacity="0.9"/>
+      <!-- Frozen indicator (snowflake-like) -->
+      <g transform="translate(10, 16)" stroke="#88aadd" stroke-width="0.8" fill="none" opacity="0.7">
+        <line x1="0" y1="-5" x2="0" y2="5"/>
+        <line x1="-4.3" y1="-2.5" x2="4.3" y2="2.5"/>
+        <line x1="-4.3" y1="2.5" x2="4.3" y2="-2.5"/>
+        <circle cx="0" cy="0" r="2" fill="#88aadd"/>
+      </g>
     </g>
-  </g>
-  
-  <!-- Plus sign -->
-  <g filter="url(#nodeGlow)">
-    <text x="73" y="90" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFD21E" text-anchor="middle">+</text>
-  </g>
-  
-  <!-- Low-rank decomposition (BA) - right side -->
-  <!-- Matrix B (tall, thin) -->
-  <g transform="translate(82, 60)" filter="url(#nodeGlow)">
-    <rect x="0" y="0" width="8" height="45" rx="1.5" ry="1.5" 
-          fill="url(#loraB)" stroke="#fff" stroke-width="0.5" opacity="0.95"/>
-    <!-- B label -->
-    <text x="4" y="-3" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#FF6B9D" text-anchor="middle">B</text>
-  </g>
-  
-  <!-- Multiplication dot -->
-  <circle cx="96" cy="82.5" r="1.5" fill="#FFD21E" filter="url(#nodeGlow)"/>
-  
-  <!-- Matrix A (short, wide) -->
-  <g transform="translate(102, 72)" filter="url(#nodeGlow)">
-    <rect x="0" y="0" width="30" height="8" rx="1.5" ry="1.5" 
-          fill="url(#loraA)" stroke="#fff" stroke-width="0.5" opacity="0.95"/>
-    <!-- A label -->
-    <text x="15" y="-3" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#00D9FF" text-anchor="middle">A</text>
-  </g>
-  
-  <!-- Arrow showing update path -->
-  <g stroke="url(#connectionGrad)" stroke-width="1.5" fill="none" opacity="0.8" stroke-linecap="round">
-    <path d="M 140 76 Q 148 76 148 90 Q 148 104 140 104" marker-end="url(#arrowhead)"/>
-  </g>
-  
-  <!-- Neural network nodes visualization (above) -->
-  <g transform="translate(0, -8)">
-    <!-- Input layer -->
+    
+    <!-- Plus sign as circle -->
     <g filter="url(#nodeGlow)">
-      <circle cx="55" cy="140" r="5" fill="#FFD21E" opacity="0.9"/>
-      <circle cx="55" cy="155" r="5" fill="#FFD21E" opacity="0.9"/>
-      <circle cx="55" cy="170" r="5" fill="#FFD21E" opacity="0.9"/>
+      <circle cx="78" cy="84" r="5" fill="none" stroke="#FFD21E" stroke-width="1.5"/>
+      <line x1="78" y1="80" x2="78" y2="88" stroke="#FFD21E" stroke-width="1.5"/>
+      <line x1="74" y1="84" x2="82" y2="84" stroke="#FFD21E" stroke-width="1.5"/>
     </g>
     
-    <!-- Hidden layer (adapted) -->
-    <g filter="url(#nodeGlow)">
-      <circle cx="100" cy="133" r="6" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
-      <circle cx="100" cy="150" r="6" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
-      <circle cx="100" cy="167" r="6" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
+    <!-- Low-rank decomposition (BA) - right side -->
+    <!-- Matrix B (tall, thin) -->
+    <g transform="translate(88, 65)" filter="url(#nodeGlow)">
+      <rect x="0" y="0" width="8" height="38" rx="1.5" ry="1.5" 
+            fill="url(#loraB)" stroke="#fff" stroke-width="0.5" opacity="0.95"/>
     </g>
     
-    <!-- Output layer -->
-    <g filter="url(#nodeGlow)">
-      <circle cx="145" cy="147" r="5" fill="#00D9FF" opacity="0.9"/>
-      <circle cx="145" cy="163" r="5" fill="#00D9FF" opacity="0.9"/>
+    <!-- Multiplication dot -->
+    <circle cx="102" cy="84" r="2" fill="#FFD21E" filter="url(#nodeGlow)"/>
+    
+    <!-- Matrix A (short, wide) -->
+    <g transform="translate(108, 76)" filter="url(#nodeGlow)">
+      <rect x="0" y="0" width="28" height="8" rx="1.5" ry="1.5" 
+            fill="url(#loraA)" stroke="#fff" stroke-width="0.5" opacity="0.95"/>
     </g>
     
-    <!-- Connections - input to hidden -->
-    <g stroke="url(#connectionGrad)" stroke-width="0.8" opacity="0.5">
-      <line x1="60" y1="140" x2="94" y2="133"/>
-      <line x1="60" y1="140" x2="94" y2="150"/>
-      <line x1="60" y1="155" x2="94" y2="133"/>
-      <line x1="60" y1="155" x2="94" y2="150"/>
-      <line x1="60" y1="155" x2="94" y2="167"/>
-      <line x1="60" y1="170" x2="94" y2="150"/>
-      <line x1="60" y1="170" x2="94" y2="167"/>
+    <!-- Arrow showing update path -->
+    <g stroke="url(#connectionGrad)" stroke-width="1.5" fill="none" opacity="0.8" stroke-linecap="round">
+      <path d="M 138 80 Q 145 80 145 90 Q 145 100 138 100"/>
+      <polygon points="138,98 142,100 138,102" fill="url(#connectionGrad)"/>
     </g>
     
-    <!-- Connections - hidden to output -->
-    <g stroke="url(#connectionGrad)" stroke-width="0.8" opacity="0.5">
-      <line x1="106" y1="133" x2="140" y2="147"/>
-      <line x1="106" y1="150" x2="140" y2="147"/>
-      <line x1="106" y1="150" x2="140" y2="163"/>
-      <line x1="106" y1="167" x2="140" y2="163"/>
+    <!-- Neural network nodes visualization -->
+    <g transform="translate(0, 0)">
+      <!-- Input layer -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="50" cy="130" r="4" fill="#FFD21E" opacity="0.9"/>
+        <circle cx="50" cy="143" r="4" fill="#FFD21E" opacity="0.9"/>
+        <circle cx="50" cy="156" r="4" fill="#FFD21E" opacity="0.9"/>
+      </g>
+      
+      <!-- Hidden layer (adapted) -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="100" cy="125" r="5" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
+        <circle cx="100" cy="140" r="5" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
+        <circle cx="100" cy="155" r="5" fill="#9B59B6" stroke="#FFD21E" stroke-width="1" opacity="0.95"/>
+      </g>
+      
+      <!-- Output layer -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="150" cy="133" r="4" fill="#00D9FF" opacity="0.9"/>
+        <circle cx="150" cy="148" r="4" fill="#00D9FF" opacity="0.9"/>
+      </g>
+      
+      <!-- Connections - input to hidden -->
+      <g stroke="url(#connectionGrad)" stroke-width="0.8" opacity="0.5">
+        <line x1="54" y1="130" x2="95" y2="125"/>
+        <line x1="54" y1="130" x2="95" y2="140"/>
+        <line x1="54" y1="143" x2="95" y2="125"/>
+        <line x1="54" y1="143" x2="95" y2="140"/>
+        <line x1="54" y1="143" x2="95" y2="155"/>
+        <line x1="54" y1="156" x2="95" y2="140"/>
+        <line x1="54" y1="156" x2="95" y2="155"/>
+      </g>
+      
+      <!-- Connections - hidden to output -->
+      <g stroke="url(#connectionGrad)" stroke-width="0.8" opacity="0.5">
+        <line x1="105" y1="125" x2="146" y2="133"/>
+        <line x1="105" y1="140" x2="146" y2="133"/>
+        <line x1="105" y1="140" x2="146" y2="148"/>
+        <line x1="105" y1="155" x2="146" y2="148"/>
+      </g>
+      
+      <!-- Adapter bypass arrows (LoRA path) -->
+      <g stroke="#FF6B9D" stroke-width="1.2" fill="none" opacity="0.7" stroke-dasharray="2,2">
+        <path d="M 100 118 Q 100 112 108 112 Q 125 112 125 120"/>
+        <path d="M 100 162 Q 100 168 108 168 Q 125 168 125 160"/>
+      </g>
     </g>
     
-    <!-- Adapter bypass arrows (LoRA path) -->
-    <g stroke="#FF6B9D" stroke-width="1.2" fill="none" opacity="0.7" stroke-dasharray="2,2">
-      <path d="M 100 125 Q 100 118 110 118 Q 130 118 130 128"/>
-      <path d="M 100 175 Q 100 182 110 182 Q 130 182 130 172"/>
+    <!-- Decorative corner accents (inside hexagon now) -->
+    <g stroke="url(#hexGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+      <path d="M 45 50 L 45 42 L 58 42"/>
+      <path d="M 155 50 L 155 42 L 142 42"/>
+      <path d="M 45 150 L 45 158 L 58 158"/>
+      <path d="M 155 150 L 155 158 L 142 158"/>
     </g>
-  </g>
-  
-  <!-- "PEFT" small indicator -->
-  <g transform="translate(100, 55)">
-    <text x="0" y="0" font-family="Arial, sans-serif" font-size="9" font-weight="bold" 
-          fill="#FFD21E" text-anchor="middle" filter="url(#nodeGlow)" letter-spacing="2">PEFT</text>
-  </g>
-  
-  <!-- Decorative corner accents -->
-  <g stroke="url(#hexGradient)" stroke-width="1.5" fill="none" opacity="0.6">
-    <path d="M 35 45 L 35 35 L 50 35"/>
-    <path d="M 165 45 L 165 35 L 150 35"/>
-    <path d="M 35 155 L 35 165 L 50 165"/>
-    <path d="M 165 155 L 165 165 L 150 165"/>
   </g>
 </svg>
