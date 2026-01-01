@@ -21,3 +21,4 @@ hf_peft_ex-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+/logs/
