@@ -56,7 +56,7 @@ defmodule HfPeftEx.Tuners.Lora.EmbeddingTest do
   describe "get_delta_weight/1" do
     test "computes (B @ A)^T * scaling" do
       embed = Embedding.new(4, 3, r: 2, lora_alpha: 2)
-      # credo:disable-for-lines:3 Credo.Check.Readability.VariableNames
+      # credo:disable-for-lines:4 Credo.Check.Readability.VariableNames
       # 2x4
       lora_A = Nx.tensor([[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0]])
       # 3x2

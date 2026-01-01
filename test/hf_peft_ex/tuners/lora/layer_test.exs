@@ -65,7 +65,7 @@ defmodule HfPeftEx.Tuners.Lora.LayerTest do
       # Create layer with known values
       layer = Layer.new(in_features: 4, out_features: 3, r: 2, lora_alpha: 2)
       # Override with known values for testing
-      # credo:disable-for-lines:3 Credo.Check.Readability.VariableNames
+      # credo:disable-for-lines:4 Credo.Check.Readability.VariableNames
       # 2x4
       lora_A = Nx.tensor([[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0]])
       # 3x2
