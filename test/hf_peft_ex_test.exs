@@ -2,7 +2,7 @@ defmodule HfPeftExTest do
   use ExUnit.Case
   doctest HfPeftEx
 
-  alias HfPeftEx.{PeftType, TaskType, Config}
+  alias HfPeftEx.{Config, PeftType, TaskType}
   alias HfPeftEx.Tuners.Lora.Config, as: LoraConfig
 
   describe "HfPeftEx" do

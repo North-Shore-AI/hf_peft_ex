@@ -164,27 +164,46 @@ defmodule HfPeftEx.Tuners.Lora.Config do
   """
   @spec validate!(t()) :: t()
   def validate!(%__MODULE__{} = config) do
-    cond do
-      config.r <= 0 ->
-        raise ArgumentError, "LoRA rank `r` must be positive, got: #{config.r}"
+    validate_rank!(config)
+    validate_dropout!(config)
+    validate_bias!(config)
+    validate_task_type!(config)
+    validate_dora_compatibility!(config)
+    config
+  end
 
-      config.lora_dropout < 0.0 or config.lora_dropout >= 1.0 ->
-        raise ArgumentError, "lora_dropout must be in [0.0, 1.0), got: #{config.lora_dropout}"
+  defp validate_rank!(%{r: r}) when r <= 0 do
+    raise ArgumentError, "LoRA rank `r` must be positive, got: #{r}"
+  end
 
-      config.bias not in [:none, :all, :lora_only] ->
-        raise ArgumentError,
-              "bias must be :none, :all, or :lora_only, got: #{inspect(config.bias)}"
+  defp validate_rank!(_config), do: :ok
 
-      config.task_type && not TaskType.valid?(config.task_type) ->
-        raise ArgumentError, "Invalid task_type: #{inspect(config.task_type)}"
+  defp validate_dropout!(%{lora_dropout: dropout}) when dropout < 0.0 or dropout >= 1.0 do
+    raise ArgumentError, "lora_dropout must be in [0.0, 1.0), got: #{dropout}"
+  end
 
-      config.use_dora && config.layers_pattern ->
-        raise ArgumentError, "DoRA does not support layers_pattern"
+  defp validate_dropout!(_config), do: :ok
 
-      true ->
-        config
+  defp validate_bias!(%{bias: bias}) when bias not in [:none, :all, :lora_only] do
+    raise ArgumentError, "bias must be :none, :all, or :lora_only, got: #{inspect(bias)}"
+  end
+
+  defp validate_bias!(_config), do: :ok
+
+  defp validate_task_type!(%{task_type: nil}), do: :ok
+
+  defp validate_task_type!(%{task_type: task_type}) do
+    unless TaskType.valid?(task_type) do
+      raise ArgumentError, "Invalid task_type: #{inspect(task_type)}"
     end
   end
+
+  defp validate_dora_compatibility!(%{use_dora: true, layers_pattern: pattern})
+       when not is_nil(pattern) do
+    raise ArgumentError, "DoRA does not support layers_pattern"
+  end
+
+  defp validate_dora_compatibility!(_config), do: :ok
 
   @doc """
   Returns the LoRA scaling factor.

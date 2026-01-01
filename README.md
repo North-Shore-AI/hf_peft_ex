@@ -80,11 +80,11 @@ Full documentation is available at [HexDocs](https://hexdocs.pm/hf_peft_ex).
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+Contributions are welcome! Please open an issue or pull request on [GitHub](https://github.com/North-Shore-AI/hf_peft_ex).
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0.
 
 ## Acknowledgments
 

@@ -52,7 +52,7 @@
       <stop offset="100%" style="stop-color:#C44569;stop-opacity:1"/>
     </linearGradient>
     
-    <!-- Clip path for hexagon - using inner hex with safe margin -->
+    <!-- Clip path for hexagon -->
     <clipPath id="hexClip">
       <polygon points="100,22 164,61 164,139 100,178 36,139 36,61"/>
     </clipPath>
@@ -83,8 +83,8 @@
   <!-- All content clipped to hexagon -->
   <g clip-path="url(#hexClip)">
     
-    <!-- PEFT Low-Rank Visualization - centered in hex -->
-    <g transform="translate(100, 100)">
+    <!-- PEFT Low-Rank Visualization - scaled up 20% -->
+    <g transform="translate(100, 82) scale(1.2)">
       
       <!-- Original weight matrix (frozen) - left -->
       <g transform="translate(-42, -20)">
@@ -127,8 +127,8 @@
         <polygon points="34,1 37,3 34,5" fill="url(#connectionGrad)"/>
       </g>
       
-      <!-- Neural network layer - bottom section -->
-      <g transform="translate(0, 32)">
+      <!-- Neural network layer - below matrices -->
+      <g transform="translate(0, 28)">
         <!-- Input nodes -->
         <g filter="url(#nodeGlow)">
           <circle cx="-38" cy="-8" r="3.5" fill="#FFD21E" opacity="0.9"/>
